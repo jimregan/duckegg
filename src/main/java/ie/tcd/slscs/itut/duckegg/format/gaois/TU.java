@@ -24,7 +24,6 @@
 
 package ie.tcd.slscs.itut.duckegg.format.gaois;
 
-import ie.tcd.slscs.itut.DictionaryConverter.dix.P;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
