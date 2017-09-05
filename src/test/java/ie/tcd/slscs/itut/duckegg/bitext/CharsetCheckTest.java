@@ -21,14 +21,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 package ie.tcd.slscs.itut.duckegg.bitext;
 
-public class LanguageProperties {
-    String name;
-    String script;
-    public LanguageProperties(String name, String script) {
-        this.name = name;
-        this.script = script;
+import junit.framework.TestCase;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+
+public class CharsetCheckTest extends TestCase {
+    public void testMatch() throws Exception {
+        LanguageProperties src = new LanguageProperties("english", "latin");
+        LanguageProperties trg = new LanguageProperties("irish", "latin");
+
+        SLTLPair chkin = new SLTLPair("A small test", "Bhí rud éigin eile ann - ελληνικά");
+        CharsetCheck chk = new CharsetCheck();
+        chk.setLanguageProperties(src, trg);
+        assertEquals(true, chk.match(chkin));
     }
+
 }
