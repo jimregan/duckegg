@@ -24,17 +24,11 @@
 
 package ie.tcd.slscs.itut.duckegg.bitext;
 
-import java.util.List;
-
-public abstract class Rule extends RuleBase {
+public abstract class Filter extends RuleBase {
     /**
-     * Corrects the input matched by the rule
+     * Checks if the input matches the filter
      * @param input The pair to be processed
-     * @return A new SLTLPair with corrections applied
+     * @return true if there is a match
      */
-    public abstract SLTLPair replace(SLTLPair input) throws Exception;
-    public boolean replacement = false;
-    public boolean hadReplacement() {
-        return replacement;
-    }
+    public abstract boolean match(SLTLPair input);
 }

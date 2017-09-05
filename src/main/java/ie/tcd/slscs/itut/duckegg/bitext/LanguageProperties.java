@@ -24,17 +24,7 @@
 
 package ie.tcd.slscs.itut.duckegg.bitext;
 
-import java.util.List;
-
-public abstract class Rule extends RuleBase {
-    /**
-     * Corrects the input matched by the rule
-     * @param input The pair to be processed
-     * @return A new SLTLPair with corrections applied
-     */
-    public abstract SLTLPair replace(SLTLPair input) throws Exception;
-    public boolean replacement = false;
-    public boolean hadReplacement() {
-        return replacement;
-    }
+public class LanguageProperties {
+    String name;
+    String script;
 }
