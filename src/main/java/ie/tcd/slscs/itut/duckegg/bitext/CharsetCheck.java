@@ -33,10 +33,10 @@ public class CharsetCheck extends Filter {
     static {
         Map<String, String> map = new HashMap<String, String>();
         map.put("latin", "\\p{InBasic_Latin}|\\p{InLatin-1_Supplement}|\\p{InLatin_Extended-A}|\\p{InLatin_Extended-B}|\\p{InLatin_Extended_Additional}");
-        map.put("greek", "\\p{InGreek_and_Coptic}|\\p{InGreek_Extended}");
+        map.put("greek", "\\p{InGreek}|\\p{InGreek_Extended}");
         map.put("cyrillic", "\\p{InCyrillic}|\\p{InCyrillic_Supplementary}");
         map.put("hebrew", "\\p{InHebrew}");
-        map.put("arabic", "\\p{InArabic}|\\p{InArabic_Presentation_Forms-A}|\\p{InArabic_Presentation_Forms-B}");
+        map.put("arabic", "\\p{InArabic}");
         CHARSETS = Collections.unmodifiableMap(map);
     }
 
