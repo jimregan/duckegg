@@ -25,6 +25,7 @@
 package ie.tcd.slscs.itut.duckegg.bitext;
 
 import java.util.*;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CharsetCheck extends Filter {
@@ -61,8 +62,33 @@ public class CharsetCheck extends Filter {
     public boolean match(SLTLPair input) {
         List<Pattern> pats = getPatterns(srcProps.script, trgProps.script);
         boolean out = false;
+        boolean verbose = true;
         for(Pattern p : pats) {
+            Matcher srcm = p.matcher(input.source);
+            Matcher trgm = p.matcher(input.target);
 
+            while(srcm.find()) {
+                String matched = input.source.substring(srcm.start(), srcm.end());
+                if(!input.target.contains(matched)) {
+                    if(verbose) {
+                        out = true;
+                        System.err.print("Source sentence " + input.source + " contains non-native script: \"" + matched + "\"");
+                    } else {
+                        return true;
+                    }
+                }
+            }
+            while(trgm.find()) {
+                String matched = input.target.substring(trgm.start(), trgm.end());
+                if(!input.source.contains(matched)) {
+                    if(verbose) {
+                        out = true;
+                        System.err.print("Target sentence " + input.target + " contains non-native script: \"" + matched + "\"");
+                    } else {
+                        return true;
+                    }
+                }
+            }
         }
 
         return out;
