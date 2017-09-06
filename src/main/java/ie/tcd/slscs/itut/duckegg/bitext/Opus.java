@@ -21,31 +21,40 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 package ie.tcd.slscs.itut.duckegg.bitext;
 
-public class SLTLPair {
-    String id;
-    String source;
-    String target;
-    public SLTLPair(String id, String source, String target) {
-        this.id = id;
-        this.source = source;
-        this.target = target;
-    }
-    public SLTLPair(String source, String target) {
-        this.id = null;
-        this.source = source;
-        this.target = target;
-    }
+import ie.tcd.slscs.itut.duckegg.format.opus.Text;
 
-    public String getId() {
-        return id;
-    }
-    public String getSource() {
-        return source;
-    }
-    public String getTarget() {
-        return target;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Opus {
+    public static void main(String[] args) throws Exception {
+        if(args.length != 3) {
+            throw new Exception("Usage: basename source-language target-language");
+        }
+        String base = args[0];
+        String sl = args[1];
+        String tl = args[2];
+        LanguageProperties enlp = new LanguageProperties("english", "latin");
+        LanguageProperties galp = new LanguageProperties("irish", "latin");
+
+        List<SLTLPair> orig = Text.read(base, sl, tl);
+        List<SLTLPair> out = new ArrayList<SLTLPair>();
+        List<SLTLPair> del = new ArrayList<SLTLPair>();
+
+        CharsetCheck ck = new CharsetCheck();
+        ck.setLanguageProperties(enlp, galp);
+
+        for (SLTLPair sent : orig) {
+            if(!ck.match(sent)) {
+                out.add(sent);
+            } else {
+                del.add(sent);
+            }
+        }
+
+        Text.write(out, base + "-filt", sl, tl);
+        Text.write(del, base + "-removed", sl, tl);
     }
 }

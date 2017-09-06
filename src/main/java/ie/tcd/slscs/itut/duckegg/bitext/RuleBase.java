@@ -24,28 +24,30 @@
 
 package ie.tcd.slscs.itut.duckegg.bitext;
 
-public class SLTLPair {
-    String id;
-    String source;
-    String target;
-    public SLTLPair(String id, String source, String target) {
-        this.id = id;
-        this.source = source;
-        this.target = target;
-    }
-    public SLTLPair(String source, String target) {
-        this.id = null;
-        this.source = source;
-        this.target = target;
+public abstract class RuleBase {
+    public String name;
+    /**
+     * The name of the rule
+     * @return a string containing the name of the rule
+     */
+    public String name() {
+        return this.name;
     }
 
-    public String getId() {
-        return id;
+    boolean needs_language_properties = false;
+    public boolean needsLanguageProperties() {
+        return needs_language_properties;
     }
-    public String getSource() {
-        return source;
+    LanguageProperties srcProps;
+    LanguageProperties trgProps;
+
+    public void setLanguageProperties(LanguageProperties src, LanguageProperties trg) {
+        srcProps = src;
+        trgProps = trg;
     }
-    public String getTarget() {
-        return target;
+
+    boolean verbose;
+    public void setVerbose(boolean verbose) {
+        this.verbose = verbose;
     }
 }

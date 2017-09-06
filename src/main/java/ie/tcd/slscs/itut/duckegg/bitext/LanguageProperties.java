@@ -24,28 +24,11 @@
 
 package ie.tcd.slscs.itut.duckegg.bitext;
 
-public class SLTLPair {
-    String id;
-    String source;
-    String target;
-    public SLTLPair(String id, String source, String target) {
-        this.id = id;
-        this.source = source;
-        this.target = target;
-    }
-    public SLTLPair(String source, String target) {
-        this.id = null;
-        this.source = source;
-        this.target = target;
-    }
-
-    public String getId() {
-        return id;
-    }
-    public String getSource() {
-        return source;
-    }
-    public String getTarget() {
-        return target;
+public class LanguageProperties {
+    String name;
+    String script;
+    public LanguageProperties(String name, String script) {
+        this.name = name;
+        this.script = script;
     }
 }

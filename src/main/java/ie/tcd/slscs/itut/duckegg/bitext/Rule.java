@@ -26,16 +26,7 @@ package ie.tcd.slscs.itut.duckegg.bitext;
 
 import java.util.List;
 
-public abstract class Rule {
-    public String name;
-    /**
-     * The name of the rule
-     * @return a string containing the name of the rule
-     */
-    public String name() {
-        return this.name;
-    }
-
+public abstract class Rule extends RuleBase {
     /**
      * Corrects the input matched by the rule
      * @param input The pair to be processed
