@@ -62,7 +62,6 @@ public class CharsetCheck extends Filter {
     public boolean match(SLTLPair input) {
         List<Pattern> pats = getPatterns(srcProps.script, trgProps.script);
         boolean out = false;
-        boolean verbose = true;
         for(Pattern p : pats) {
             Matcher srcm = p.matcher(input.source);
             Matcher trgm = p.matcher(input.target);

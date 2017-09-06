@@ -45,4 +45,9 @@ public abstract class RuleBase {
         srcProps = src;
         trgProps = trg;
     }
+
+    boolean verbose;
+    public void setVerbose(boolean verbose) {
+        this.verbose = verbose;
+    }
 }
