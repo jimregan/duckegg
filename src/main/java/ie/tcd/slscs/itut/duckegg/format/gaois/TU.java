@@ -84,7 +84,7 @@ public class TU {
                             if (segnode.getChildNodes().getLength() == 1 && segnode.getFirstChild().getNodeName().equals("#text")) {
                                 seg = chomp(segnode.getFirstChild().getTextContent());
                             } else {
-                                throw new Exception("Unexpected node: expected text, got" + segnode.getNodeName());
+                                throw new Exception("Unexpected node: expected text, got " + segnode.getNodeName());
                             }
                         } else if(segnode.getNodeName().equals("#text") && segnode.getTextContent().trim().equals("")) {
                             //
