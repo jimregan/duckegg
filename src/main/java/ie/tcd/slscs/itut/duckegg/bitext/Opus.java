@@ -55,6 +55,6 @@ public class Opus {
             }
         }
 
-        Text.read(base + "-filt", sl, tl);
+        Text.write(out, base + "-filt", sl, tl);
     }
 }
