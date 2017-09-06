@@ -35,15 +35,25 @@ public class GaoisFinalNumberAddition extends Rule {
     public SLTLPair replace(SLTLPair input) throws Exception {
         int start = 0;
         String target = input.target;
+        this.replacement = false;
         Pattern ptrg = Pattern.compile("^[0-9]+\\) ?");
+        Pattern psrc = Pattern.compile("^\\(+[0-9]+\\) ?");
         Matcher mtrg = ptrg.matcher(input.target);
         Matcher msrc = ptrg.matcher(input.source);
         Pattern pend = Pattern.compile("No\\. ([0-9]+\\)?)$");
         Matcher mend = pend.matcher(input.source);
         if(mtrg.find() && !msrc.find()) {
             start = mtrg.end();
-            target = input.target.substring(start);
-            this.replacement = true;
+            String startstr = input.target.substring(0, start);
+            if(input.source.startsWith("(" + startstr.trim())) {
+                this.replacement = true;
+            } else if(input.source.startsWith(startstr)) {
+                target = input.target;
+                this.replacement = false;
+            } else {
+                target = input.target.substring(start);
+                this.replacement = false;
+            }
         }
         if(target.endsWith("Uimh.") && mend.find()) {
             String add = mend.group(1);
