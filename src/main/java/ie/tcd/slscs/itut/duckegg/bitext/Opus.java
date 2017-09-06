@@ -30,16 +30,12 @@ import java.util.List;
 
 public class Opus {
     public static void main(String[] args) throws Exception {
-        /*
         if(args.length != 3) {
             throw new Exception("Usage: basename source-language target-language");
         }
         String base = args[0];
         String sl = args[1];
-        String tl = args[2];*/
-        String base = "EUbookshop.en-ga";
-        String sl = "en";
-        String tl = "ga";
+        String tl = args[2];
         LanguageProperties enlp = new LanguageProperties("english", "latin");
         LanguageProperties galp = new LanguageProperties("irish", "latin");
 
