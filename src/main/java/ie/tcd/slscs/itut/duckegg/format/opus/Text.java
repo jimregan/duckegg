@@ -25,15 +25,12 @@ package ie.tcd.slscs.itut.duckegg.format.opus;
 
 import ie.tcd.slscs.itut.duckegg.bitext.SLTLPair;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Text {
-    public static File tryFile(String base, String lang) throws Exception {
+    public static File tryFile(String base, String lang, boolean write) throws IOException {
         String filename = base;
         if(filename.endsWith(".")) {
             base += lang;
@@ -42,10 +39,10 @@ public class Text {
             base += lang;
         }
         File f = new File(base + lang);
-        if(f.exists() && f.canRead()) {
+        if(f.exists() && ((write && f.canWrite()) || f.canRead())) {
             return f;
         } else {
-            throw new Exception("Cannot open " + filename + " for reading");
+            throw new IOException("Cannot open " + filename + " for reading");
         }
     }
     public static List<String> fileToStringList(File f) throws IOException {
@@ -64,8 +61,8 @@ public class Text {
         return out;
     }
     public static List<SLTLPair> read(String base, String src, String trg) throws Exception {
-        File source = tryFile(base, src);
-        File target = tryFile(base, trg);
+        File source = tryFile(base, src, false);
+        File target = tryFile(base, trg, false);
         List<SLTLPair> out = new ArrayList<SLTLPair>();
         List<String> srcTxt = fileToStringList(source);
         List<String> trgTxt = fileToStringList(target);
@@ -78,5 +75,20 @@ public class Text {
         }
 
         return out;
+    }
+
+    public static void write(List<SLTLPair> sents, String base, String src, String trg) throws IOException {
+        File source = tryFile(base, src, true);
+        File target = tryFile(base, trg, true);
+        BufferedWriter srcout = new BufferedWriter(new FileWriter(source));
+        BufferedWriter trgout = new BufferedWriter(new FileWriter(target));
+        for(SLTLPair sent : sents) {
+            srcout.write(sent.getSource());
+            srcout.newLine();
+            trgout.write(sent.getTarget());
+            trgout.newLine();
+        }
+        srcout.close();
+        trgout.close();
     }
 }

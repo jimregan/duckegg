@@ -38,4 +38,14 @@ public class SLTLPair {
         this.source = source;
         this.target = target;
     }
+
+    public String getId() {
+        return id;
+    }
+    public String getSource() {
+        return source;
+    }
+    public String getTarget() {
+        return target;
+    }
 }
