@@ -30,20 +30,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Text {
-    public static File tryFile(String base, String lang, boolean write) throws IOException {
+    public static File tryReadFile(String base, String lang) throws IOException {
         String filename = base;
         if(filename.endsWith(".")) {
-            base += lang;
+            filename += lang;
         } else {
-            base += ".";
-            base += lang;
+            filename += ".";
+            filename += lang;
         }
-        File f = new File(base + lang);
-        if(f.exists() && ((write && f.canWrite()) || f.canRead())) {
+        File f = new File(filename);
+        if(f.exists() && f.canRead()) {
             return f;
         } else {
             throw new IOException("Cannot open " + filename + " for reading");
         }
+    }
+    public static File tryWriteFile(String base, String lang) throws IOException {
+        String filename = base;
+        if(filename.endsWith(".")) {
+            filename += lang;
+        } else {
+            filename += ".";
+            filename += lang;
+        }
+        File f = new File(filename);
+        return f;
     }
     public static List<String> fileToStringList(File f) throws IOException {
         List<String> out = new ArrayList<String>();
@@ -61,8 +72,8 @@ public class Text {
         return out;
     }
     public static List<SLTLPair> read(String base, String src, String trg) throws Exception {
-        File source = tryFile(base, src, false);
-        File target = tryFile(base, trg, false);
+        File source = tryReadFile(base, src);
+        File target = tryReadFile(base, trg);
         List<SLTLPair> out = new ArrayList<SLTLPair>();
         List<String> srcTxt = fileToStringList(source);
         List<String> trgTxt = fileToStringList(target);
@@ -78,8 +89,8 @@ public class Text {
     }
 
     public static void write(List<SLTLPair> sents, String base, String src, String trg) throws IOException {
-        File source = tryFile(base, src, true);
-        File target = tryFile(base, trg, true);
+        File source = tryWriteFile(base, src);
+        File target = tryWriteFile(base, trg);
         BufferedWriter srcout = new BufferedWriter(new FileWriter(source));
         BufferedWriter trgout = new BufferedWriter(new FileWriter(target));
         for(SLTLPair sent : sents) {
