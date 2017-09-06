@@ -41,6 +41,7 @@ public class Opus {
 
         List<SLTLPair> orig = Text.read(base, sl, tl);
         List<SLTLPair> out = new ArrayList<SLTLPair>();
+        List<SLTLPair> del = new ArrayList<SLTLPair>();
 
         CharsetCheck ck = new CharsetCheck();
         ck.setLanguageProperties(enlp, galp);
@@ -48,9 +49,12 @@ public class Opus {
         for (SLTLPair sent : orig) {
             if(!ck.match(sent)) {
                 out.add(sent);
+            } else {
+                del.add(sent);
             }
         }
 
         Text.write(out, base + "-filt", sl, tl);
+        Text.write(del, base + "-removed", sl, tl);
     }
 }
