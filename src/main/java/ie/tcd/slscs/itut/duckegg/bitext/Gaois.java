@@ -24,5 +24,34 @@
 
 package ie.tcd.slscs.itut.duckegg.bitext;
 
+import ie.tcd.slscs.itut.duckegg.format.gaois.TMX;
+import ie.tcd.slscs.itut.duckegg.format.gaois.TU;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Gaois {
+    public static void main(String[] args) throws Exception {
+        if(args.length != 3) {
+            throw new Exception("Usage: filename source-language target-language");
+        }
+        String filename = args[0];
+        String srcLang = args[1];
+        String trgLang = args[2];
+
+        TMX tmx = TMX.readFile(filename);
+        List<SLTLPair> segs = TUsToSLTLPairs(tmx.getTUs(), srcLang, trgLang);
+    }
+
+    public static List<SLTLPair> TUsToSLTLPairs(List<TU> tus, String src, String trg) {
+        List<SLTLPair> out = new ArrayList<SLTLPair>();
+        for(TU tu : tus) {
+            String srcseg = tu.getSegments().get(src);
+            String trgseg = tu.getSegments().get(trg);
+            if(srcseg != null && trgseg != null) {
+                out.add(new SLTLPair(tu.getId(), srcseg, trgseg));
+            }
+        }
+        return out;
+    }
 }
