@@ -35,6 +35,7 @@ public class GaoisFinalNumberAddition extends Rule {
     public SLTLPair replace(SLTLPair input) throws Exception {
         int start = 0;
         String target = input.target;
+        this.replacement = false;
         Pattern ptrg = Pattern.compile("^[0-9]+\\) ?");
         Matcher mtrg = ptrg.matcher(input.target);
         Matcher msrc = ptrg.matcher(input.source);
