@@ -55,7 +55,9 @@ public class Gaois {
             if(numrule.hadReplacement()) {
                 System.err.println("Replacement in segment " + replace.getId());
             }
-            changed.add(replace);
+            if(!replace.getSource().equals("") && !replace.getTarget().equals("")) {
+                changed.add(replace);
+            }
         }
 
         Text.write(changed, outputFile, srcLang, trgLang);
