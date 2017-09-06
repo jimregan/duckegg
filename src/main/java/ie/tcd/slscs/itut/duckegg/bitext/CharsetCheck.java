@@ -83,7 +83,7 @@ public class CharsetCheck extends Filter {
                 if(!input.source.contains(matched)) {
                     if(verbose) {
                         out = true;
-                        System.err.print("Target sentence " + input.target + " contains non-native script: \"" + matched + "\"");
+                        System.err.println("Target sentence " + input.target + " contains non-native script: \"" + matched + "\"");
                     } else {
                         return true;
                     }
