@@ -51,11 +51,29 @@ public class Gaois {
         GaoisFinalNumberAddition numrule = new GaoisFinalNumberAddition();
 
         for(SLTLPair seg : segs) {
+            boolean add = false;
             SLTLPair replace = numrule.replace(seg);
             if(numrule.hadReplacement()) {
                 System.err.println("Replacement in segment " + replace.getId());
+                add = true;
             }
-            if(!replace.getSource().equals("") && !replace.getTarget().equals("")) {
+            if(replace.getTarget().equals(replace.getSource())) {
+                System.err.println("Source and target equal: " + replace.getId());
+                add = false;
+            }
+            if(replace.getSource().equals("") && !replace.getTarget().equals("")) {
+                System.err.println("Empty source, non-empty target: " + replace.getId());
+                add = false;
+            }
+            if(replace.getTarget().equals("") && !replace.getSource().equals("")) {
+                System.err.println("Empty target, non-empty source: " + replace.getId());
+                add = false;
+            }
+            if(replace.getSource().equals("") && replace.getTarget().equals("")) {
+                System.err.println("Both segments empty: " + replace.getId());
+                add = false;
+            }
+            if(add) {
                 changed.add(replace);
             }
         }
