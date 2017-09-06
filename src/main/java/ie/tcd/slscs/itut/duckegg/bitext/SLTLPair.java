@@ -28,12 +28,12 @@ public class SLTLPair {
     String id;
     String source;
     String target;
-    SLTLPair(String id, String source, String target) {
+    public SLTLPair(String id, String source, String target) {
         this.id = id;
         this.source = source;
         this.target = target;
     }
-    SLTLPair(String source, String target) {
+    public SLTLPair(String source, String target) {
         this.id = null;
         this.source = source;
         this.target = target;
